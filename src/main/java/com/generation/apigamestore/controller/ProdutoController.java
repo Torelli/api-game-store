@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,23 @@ public class ProdutoController {
     @GetMapping
     public ResponseEntity<List<Produto>> findAll() {
         return ResponseEntity.ok(produtoRepository.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> findById(@PathVariable Long id) {
+        return produtoRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<Produto>> findAllByNome(@PathVariable String nome) {
+        return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
+    }
+
+    @GetMapping("/precoMaiorIgual/{preco}")
+    ResponseEntity<List<Produto>> findAllByPrecoGreaterThanEqual(@PathVariable BigDecimal preco) {
+        return ResponseEntity.ok(produtoRepository.findAllByPrecoGreaterThanEqual(preco));
     }
 
     @PutMapping
