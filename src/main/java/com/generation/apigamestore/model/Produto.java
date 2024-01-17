@@ -26,6 +26,5 @@ public class Produto {
 
     @ManyToOne
     @JsonIgnoreProperties("produtos")
-    @NotBlank(message = "O campo categoria é obrigatório!")
     private Long categoria;
 }
