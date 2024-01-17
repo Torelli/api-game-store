@@ -1,6 +1,7 @@
 package com.generation.apigamestore.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +24,8 @@ public class Produto {
     @Positive(message = "O preço deve ser maior do que zero!")
     private BigDecimal preco;
 
+    @ManyToOne
+    @JsonIgnoreProperties("produtos")
     @NotBlank(message = "O campo categoria é obrigatório!")
     private Long categoria;
 }
