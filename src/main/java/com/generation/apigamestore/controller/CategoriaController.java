@@ -31,6 +31,23 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaRepository.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Categoria> findById(@PathVariable Long id) {
+        return categoriaRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<Categoria>> findAllByNome(@PathVariable String nome) {
+        return ResponseEntity.ok(categoriaRepository.findAllByNomeContainingIgnoreCase(nome));
+    }
+
+    @GetMapping("/descricao/{descricao}")
+    public ResponseEntity<List<Categoria>> findAllByDescricao(@PathVariable String descricao) {
+        return ResponseEntity.ok(categoriaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
+    }
+
     @PutMapping
     public ResponseEntity<Categoria> updateCategoria(@Valid @RequestBody Categoria categoria) {
         return categoriaRepository.findById(categoria.getId())
