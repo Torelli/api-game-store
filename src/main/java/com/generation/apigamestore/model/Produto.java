@@ -21,6 +21,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O nome do produto é obrigatório!")
     private String nome;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -30,5 +31,5 @@ public class Produto {
 
     @ManyToOne
     @JsonIgnoreProperties("produtos")
-    private Long categoria;
+    private Categoria categoria;
 }
