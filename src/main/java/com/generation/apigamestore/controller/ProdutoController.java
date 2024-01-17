@@ -32,7 +32,7 @@ public class ProdutoController {
     }
 
     @PutMapping
-    public ResponseEntity<Produto> updatePostagem(@Valid @RequestBody Produto produto) {
+    public ResponseEntity<Produto> updateProduto(@Valid @RequestBody Produto produto) {
         return produtoRepository.findById(produto.getId())
                 .map(response -> ResponseEntity.status(HttpStatus.OK)
                         .body(produtoRepository.save(produto)))
